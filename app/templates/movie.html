@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">{{movie.name}}</h1>
+    <div class="row">
+        <div class="col-12">
+            <div class="wrapper-review">
+                <div class="user-image">
+                    <img src="{{ movie.img }}">
+                </div>
+                {% set full_star_movie = (movie.rating / 2)| int %}
+                {% set rest_star_movie = ((movie.rating / 2) % full_star_movie) %}
+
+                <div class="ratings">
+                    {% for full_star in range(full_star_movie) %}
+                        <i class="fa fa-star"></i>
+                    {% endfor %}
+                    {% if(rest_star_movie >= 0.50) %}
+                        <i class="fa fa-star-half-empty"></i>
+                    {% else %}
+                        <i class="fa fa-star-o"></i>
+                    {% endif %}
+                </div>
+                <div>Release : {{ movie.release }}</div>
+                <div>Run time : {{ movie.runtime }}</div>
+                <div>Gender : {{ movie.genre }}</div>
+
+                <div class="review">
+                    <a href="{{ url_for('main.movie_review', movie_id=movie.id, user_id=current_user.id) }}">
+                        Make a review
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask Auth Example</title>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <section class="hero is-primary is-fullheight">
+
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+
+                    <div id="navbarMenuHeroA" class="navbar-menu">
+                        <div class="navbar-end">
+                            <a href="{{ url_for('main.index') }}" class="navbar-item">
+                                Home
+                            </a>
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('main.profile') }}" class="navbar-item">
+                                Profile
+                            </a>
+                            <a href="{{ url_for('main.community_reviews') }}" class="navbar-item">
+                                Community reviews
+                            </a>
+                            {% endif %}
+                            {% if not current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.login') }}" class="navbar-item">
+                                Login
+                            </a>
+                            <a href="{{ url_for('auth.signup') }}" class="navbar-item">
+                                Sign Up
+                            </a>
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('auth.logout') }}" class="navbar-item">
+                                Logout
+                            </a>
+                            {% endif %}
+                            {% if current_user.is_authenticated %}
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle"
+                                        type="button"
+                                        id="dropdownMenuButton"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"
+                                        style="background-color: inherit; font-size: 17px;"
+                                >
+                                    <svg style="position: relative; top: 2px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                    </svg>
+                                    {{ current_user.name }}
+                                <span class="caret"></span></button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#"> Email : {{ current_user.email }}</a>
+                                    <a class="dropdown-item" href="#">Last Login : {{ current_user.last_login }}</a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+               {% block content %}
+               {% endblock %}
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+

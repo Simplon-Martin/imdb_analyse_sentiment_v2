@@ -1,0 +1,52 @@
+* {
+}
+
+.card {
+    margin:15px;
+    background-color: inherit ! important;
+    max-height: 165px;
+    box-shadow: none ! important;
+    margin-bottom: 25px;
+}
+
+.wrapper-card-loged .card:hover {
+    transform: scale(1.2);
+    text-decoration: none;
+}
+
+.ratings i{
+    color: yellow;
+}
+
+.wrapper-review img {
+    height: 350px;
+    width: 250px;
+}
+
+.wrapper-review div {
+    margin: 8px 0px;
+}
+
+.wrapper-review .review {
+    margin-top: 25px;
+}
+
+.wrapper-review .review > a{
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: #1496ed;
+    text-decoration: none;
+}
+
+.tab_head div {
+    margin: 0px;
+    padding: 0px;
+}
+
+.tab_head h3 {
+    border: 1px solid black;
+    padding: 5px;
+}
+.tab div {
+    margin-top: 15px;
+}

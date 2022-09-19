@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  IMBD Films
+</h1>
+<h2 class="subtitle">
+  All fimls with reviews / Strars ratings
+</h2>
+{% if(current_user.is_authenticated) %}
+<h3>click on the film of your choice to give a review</h3>
+{% endif %}
+<br>
+<div class="container">
+    <div class="row">
+        <div>
+            {% for movie in movies.items %}
+                <div class="col-12 col-md-3">
+                    {% if(current_user.is_authenticated) %}
+                        <a href="{{ url_for('main.find_movie', movie_id=movie.id) }}" style="text-decoration: none;" class="wrapper-card-loged">
+                            <div class="card p-3 text-center px-4">
+                                <div class="user-image">
+                                    <img src="{{ movie.img }}" class="rounded-circle" width="80">
+                                </div>
+                                <div>{{ movie.name }}</div>
+                                {% set full_star_movie = (movie.rating / 2)| int %}
+                                {% set rest_star_movie = ((movie.rating / 2) % full_star_movie) %}
+
+                                <div class="ratings">
+                                    {% for full_star in range(full_star_movie) %}
+                                        <i class="fa fa-star"></i>
+                                    {% endfor %}
+                                    {% if(rest_star_movie >= 0.50) %}
+                                        <i class="fa fa-star-half-empty"></i>
+                                    {% else %}
+                                        <i class="fa fa-star-o"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                    {% else %}
+                        <div class="card p-3 text-center px-4">
+                            <div class="user-image">
+                                <img src="{{ movie.img }}" class="rounded-circle" width="80">
+                            </div>
+                            <div>{{ movie.name }}</div>
+                                {% set full_star_movie = (movie.rating / 2)| int %}
+                                {% set rest_star_movie = ((movie.rating / 2) % full_star_movie) %}
+                            <div class="ratings">
+                                {% for full_star in range(full_star_movie) %}
+                                    <i class="fa fa-star"></i>
+                                {% endfor %}
+                                {% if(rest_star_movie >= 0.50) %}
+                                    <i class="fa fa-star-half-empty"></i>
+                                {% else %}
+                                    <i class="fa fa-star-o"></i>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Pagination Links-->
+        <div class="text-right">
+            <a href="{{ url_for('main.index', page=movies.prev_num) }}"
+               class="btn btn-outline-dark
+               {% if movies.page == 1 %}disabled{% endif %}">
+                &laquo;
+            </a>
+            {% for page_num in movies.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                    {% if movies.page == page_num %}
+                    <a href="{{ url_for('main.index', page=page_num) }}"
+                       class="btn btn-dark">
+                        {{ page_num }}
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('main.index', page=page_num) }}"
+                       class="btn btn-outline-dark">
+                        {{ page_num }}
+                    </a>
+                    {% endif %}
+                {% else %}
+                {% endif %}
+            {% endfor %}
+            <a href="{{ url_for('main.index', page=movies.next_num) }}"
+               class="btn btn-outline-dark
+               {% if movies.page == movies.pages %}disabled{% endif %}">
+                &raquo;
+            </a>
+        </div>
+        <p class="text-right mt-3">
+           Showing page {{ movies.page }} of {{ movies.pages }}
+        </p>
+    </div>
+</div>
+
+
+
+{% endblock %}
