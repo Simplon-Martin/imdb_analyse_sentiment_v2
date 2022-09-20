@@ -1,13 +1,13 @@
-# Moteur_recommandation_livre
-Développer un moteur de recommandation de livre, à partir d'une base de données d'avis d'utilisateurs.
+# IMDB analyse de sentiment
+
 
 ## Installation
 
 Suivre les indications ci-dessous :
 
 ```bash
-git clone https://github.com/Simplon-Martin/Moteur_recommandation_livre
-cd RecomBook/
+git clone https://github.com/Simplon-Martin/imdb_analyse_sentiment_v2.git
+cd imdb_analyse_sentiment_v2/
 ```
 
 Sous Windows : 
