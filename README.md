@@ -10,6 +10,11 @@ git clone https://github.com/Simplon-Martin/imdb_analyse_sentiment_v2.git
 cd imdb_analyse_sentiment_v2/
 ```
 
+Créer une BDD Mysql :
+```sql
+CREATE DATABASE  IF NOT EXISTS `imdb_v2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+```
+
 Sous Windows : 
 
 ```bash
