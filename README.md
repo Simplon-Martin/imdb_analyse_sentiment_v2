@@ -42,10 +42,6 @@ Ouvrir le fichier exemple_config.yml et remplacer les valeurs par défaut par ce
 mkdir instance
 cp exemple_config.yml instance/config.yml
 ```
-Créer une BDD Mysql :
-```sql
-CREATE DATABASE  IF NOT EXISTS `recom` /*!40100 DEFAULT CHARACTER SET utf8mb4 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-```
 
 Générer le dossier "migrations" :
 ```bash

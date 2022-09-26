@@ -1,8 +1,8 @@
 DEFAULT_DB: MYSQL
 MYSQL:
   connector: mysql+pymysql
-  user: martin
-  password: Simplon2021#!
+  user: user
+  password: password
   host: localhost
   port: 3306
-  bdd: imdb_v2
+  bdd: bdd
