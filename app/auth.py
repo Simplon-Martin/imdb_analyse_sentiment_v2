@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 from flask_login import current_user, login_user, login_required, logout_user
 
+from app.forms import SignupForm, LoginForm
+from flask_wtf import FlaskForm
 from app.models import User
 from app.db import db
 
@@ -15,7 +17,9 @@ auth = Blueprint(
 
 @auth.route("/signup")
 def signup():
-    return render_template('signup.html')
+
+    form = SignupForm()
+    return render_template('signup.html', form=form)
 
 
 @auth.route('/signup', methods=['POST'])
@@ -24,9 +28,6 @@ def signup_post():
     name = request.form.get('name')
     password = request.form.get('password')
 
-    print(email)
-    print(name)
-    print(password)
 
     user = User.User.query.filter_by(
         email=email).first()  # if this returns a user, then the email already exists in database
@@ -53,7 +54,8 @@ def signup_post():
 
 @auth.route("/login")
 def login():
-    return render_template('login.html')
+    form = LoginForm()
+    return render_template('login.html', form=form)
 
 
 @auth.route("/login", methods=["POST"])
@@ -87,19 +89,3 @@ def login_post():
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
-"""
-@login_manager.user_loader
-def load_user(user_id):
-    Check if user is logged-in upon page load.
-    if user_id is not None:
-        return User.query.get(user_id)
-    return None
-
-
-@login_manager.unauthorized_handler
-def unauthorized():
-    "Redirect unauthorized users to Login page
-    flash("You must be logged in to view that page.")
-    return redirect(url_for("auth_bp.login"))
-
-"""

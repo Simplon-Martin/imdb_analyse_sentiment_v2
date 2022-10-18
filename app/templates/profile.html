@@ -25,19 +25,29 @@
                                 <img src="{{ movie.img }}" class="rounded-circle" width="80">
                             </div>
                             <div>{{ movie.name }}</div>
-                            {% set full_star_movie = (user_rating.rating / 2)| int %}
-                            {% set rest_star_movie = ((user_rating.rating / 2) % full_star_movie) %}
+                            {%if(user_rating.rating != 0) %}
+                                {% set full_star_movie = (user_rating.rating / 2)| int %}
+                                {% set rest_star_movie = ((user_rating.rating / 2) % full_star_movie) %}
 
+                                <div class="ratings">
+                                    {% for full_star in range(full_star_movie) %}
+                                        <i class="fa fa-star"></i>
+                                    {% endfor %}
+                                    {% if(rest_star_movie >= 0.50) %}
+                                        <i class="fa fa-star-half-empty"></i>
+                                    {% elif(rest_star_movie != 0.0) %}
+                                        <i class="fa fa-star-o"></i>
+                                    {% endif %}
+                                </div>
+                            {% else %}
                             <div class="ratings">
-                                {% for full_star in range(full_star_movie) %}
-                                    <i class="fa fa-star"></i>
-                                {% endfor %}
-                                {% if(rest_star_movie >= 0.50) %}
-                                    <i class="fa fa-star-half-empty"></i>
-                                {% elif(rest_star_movie != 0.0) %}
-                                    <i class="fa fa-star-o"></i>
-                                {% endif %}
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
                             </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}

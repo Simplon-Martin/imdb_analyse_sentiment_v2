@@ -72,14 +72,9 @@ def create_review():
 
     rating_score = prediction_proba[0][1]
 
-    print(prediction[0])
-    print(prediction_proba[0])
-    print(rating_score)
-    print(rating_score * 10)
     rating_score_on_cent = (rating_score * 10)
     format_rating_score = "{:.2f}".format(rating_score_on_cent)
 
-    print(format_rating_score)
 
     new_review = Rating.Rating(user_id=current_user.id, movie_id=movie_id, review=review, rating=format_rating_score)
 

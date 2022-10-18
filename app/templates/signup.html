@@ -13,7 +13,32 @@
             {% endif %}
         {% endwith %}
         <form method="POST" action="/signup">
+
             <div class="field">
+                <div class="control">
+                    <div class=" is-large">
+                        {{ form.email(class_="input", placeholder="email") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <div class=" is-large">
+                        {{ form.name(class_="input", placeholder="name") }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <div class=" is-large">
+                        {{ form.password(class_="input", placeholder="password") }}
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="field">
                 <div class="control">
                     <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
                 </div>
@@ -30,6 +55,13 @@
                     <input class="input is-large" type="password" name="password" placeholder="Password">
                 </div>
             </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="confirm" placeholder="Confirm">
+                </div>
+            </div>-->
+
 
             <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
         </form>
