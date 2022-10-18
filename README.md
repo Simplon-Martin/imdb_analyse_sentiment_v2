@@ -45,7 +45,7 @@ Générer le dossier "migrations" :
 ```bash
 flask db init
 ```
-Au besoin : 
+ 
 ```bash
 flask db migrate
 ```
