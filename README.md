@@ -15,13 +15,11 @@ Créer une BDD Mysql :
 CREATE DATABASE  IF NOT EXISTS `imdb_v2` /*!40100 DEFAULT CHARACTER SET utf8mb4 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 ```
 
-Sous Windows : 
+Config environement :
 
 ```bash
 python -m venv venv
 ```
-
-Sous Linux : 
 
 ```bash
 source venv/bin/activate
@@ -49,7 +47,6 @@ flask db init
 ```
 Au besoin : 
 ```bash
-flask db stamp head
 flask db migrate
 ```
 Création du script.sql et insertion des données : 
@@ -62,6 +59,7 @@ Exécution
 Pour lancer l'app, vous devrez taper la commande :
 
 ```bash
+FLASK_APP=app.py
 FLASK_ENV=development flask run --port 8080
 ```
 
