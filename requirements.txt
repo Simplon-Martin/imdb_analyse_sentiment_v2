@@ -12,3 +12,4 @@ Flask_login
 pymysql
 flask_wtf
 email_validator
+sklearn
