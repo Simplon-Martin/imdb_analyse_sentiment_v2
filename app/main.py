@@ -89,12 +89,24 @@ def create_review():
 
 @main.route("/update_review/", methods=['GET', 'POST'])
 def update_review():
+    model = load_model()
+
     movie_id = request.form['movie_id']
     new_review = request.form['review']
     rating_id = request.form['rating_id']
     user_rating = db.session.query(Rating.Rating).filter(Rating.Rating.id == rating_id).one()
 
+    prediction = model.predict([new_review])
+    prediction_proba = model.predict_proba([new_review])
+
+    rating_score = prediction_proba[0][1]
+
+    rating_score_on_cent = (rating_score * 10)
+    format_rating_score = "{:.2f}".format(rating_score_on_cent)
+
+
     user_rating.review = new_review
+    user_rating.rating = format_rating_score
     user_rating.updated_at = datetime.datetime.now()
 
     db.session.commit()
