@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from flask_sqlalchemy import SQLAlchemy
 from app.models import User, Movies, Rating
+import logging
 import datetime
 import pickle
 
@@ -69,17 +70,19 @@ def create_review():
     prediction = model.predict([review])
     prediction_proba = model.predict_proba([review])
 
-
     rating_score = prediction_proba[0][1]
 
     rating_score_on_cent = (rating_score * 10)
     format_rating_score = "{:.2f}".format(rating_score_on_cent)
 
-
     new_review = Rating.Rating(user_id=current_user.id, movie_id=movie_id, review=review, rating=format_rating_score)
 
     db.session.add(new_review)
     db.session.commit()
+
+    logging.warning('review created')
+    logging.warning(current_user)
+    logging.warning(review)
 
     page = request.args.get('page', 1, type=int)
     movies = db.session.query(Movies.Movie).paginate(page=page, per_page=ROWS_PER_PAGE)
@@ -104,13 +107,15 @@ def update_review():
     rating_score_on_cent = (rating_score * 10)
     format_rating_score = "{:.2f}".format(rating_score_on_cent)
 
-
     user_rating.review = new_review
     user_rating.rating = format_rating_score
     user_rating.updated_at = datetime.datetime.now()
 
     db.session.commit()
-    return render_template("profile.html")
+
+    user_ratings = db.session.query(Rating.Rating).filter(Rating.Rating.user_id == current_user.id).all()
+    movies = db.session.query(Movies.Movie).all()
+    return render_template('profile.html', name=current_user.name, user_ratings=user_ratings, movies=movies)
 
 
 @main.route("/delete_review/<int:exist_review_id>", methods=['GET', 'POST'])
